@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Database;
+using Microsoft.EntityFrameworkCore;
+using BusLogic;
 
 namespace P1
 {
@@ -24,6 +27,19 @@ namespace P1
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+			services.AddDbContext<Database.masterContext>(options =>
+			{
+				if (!options.IsConfigured)
+				{
+					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+				}
+			});
+				services.AddScoped<IBusiLogic,BusiLogic>();
+				//// added to add sessions
+				//services.AddSession(options =>
+				//{
+				//	options.IdleTimeout = TimeSpan.FromMinutes(20);
+				//});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
