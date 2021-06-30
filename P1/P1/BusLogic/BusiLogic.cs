@@ -99,6 +99,26 @@ namespace BusLogic
 			return reStore;
 		}
 
+		public List<Product> ProductChoice(StoreLocation store) 
+		{
+			var storeProduct = (from x in Context.Products
+								from y in Context.Inventories
+								where y.LocationId == store.LocationId && x.ProductId == y.ProductId
+								select x).ToList();
+
+			return storeProduct;
+		}
+
+		public List<Inventory> InventoryChoice(StoreLocation store)
+		{
+			var storeProduct = (from x in Context.Products
+								from y in Context.Inventories
+								where y.LocationId == store.LocationId && x.ProductId == y.ProductId
+								select y).ToList();
+
+			return storeProduct;
+		}
+
 	}
 }
 

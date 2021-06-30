@@ -31,16 +31,21 @@ namespace P1.Controllers
 		{
 			var shopStore = logic.PickaStore(store);
 
-			ViewBag.store = shopStore;
+			
 
 			HttpContext.Session.SetString("store", JsonConvert.SerializeObject(shopStore));
 
-			Customer user = JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("Customer"));
+			//Customer user = JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("Customer"));
 
-			ViewBag.user = user;
+			var inventoryList = logic.InventoryChoice(shopStore);
 
+			var productList = logic.ProductChoice(shopStore);
 
-			return View();
+			
+
+			
+
+			return View(productList);
 		}
 
 	}
