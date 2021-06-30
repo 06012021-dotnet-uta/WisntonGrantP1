@@ -1,20 +1,26 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-    ViewData["Title"] = "PokeShops";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to the PokeShop shop</h1>
-    <p> </p>
-    <form asp-action="PokeShop">
+    @{
+        ViewData["Title"] = "PokeShops";
+    }
 
-        
+    <div class="text-center">
+        <h1 class="display-4">Welcome to the PokeShop shop</h1>
+          
+        <form asp-action="ShopChoice">
+            
+                <label for="store">Choose a Pokeshop location:</label>
+                <select name="store" id="StoreLocation">
+                    @foreach (P1Database.StoreLocation obj in Model)
+                    { <option value="@obj.LocationName">@obj.LocationName</option>}
+                </select>
+                <br><br>
+                <input type="submit" value="Submit">
+        </form>
 
-    </form>
-
-</div>
+    </div>
 
 
 

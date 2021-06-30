@@ -5,14 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusLogic;
-using Database;
+using P1Database;
+using Newtonsoft.Json;
 
 namespace P1.Controllers
 {
 	public class AccountController : Controller
 	{
 		public IBusiLogic logic;
+		P0Context context = new P0Context();
 		// GET: AccountController
+
+		//need to have a constructor with Ibusilogic in it
 		public AccountController(IBusiLogic logic) 
 		{
 			this.logic = logic;
@@ -24,7 +28,53 @@ namespace P1.Controllers
 			return View();
 		}
 
-		public ActionResult LogIn() { return View(); }
+		public ActionResult LogIn() 
+		{ 
+
+
+			return View(); 
+		}
+		public ActionResult LogInCheck(string fname, string lname) 
+		{
+			Customer User=	logic.LogInVerification(fname, lname);
+
+			string statement = null;
+
+			if (User != null)
+			{
+				statement = "We Logged you in";
+				HttpContext.Session.SetString("Customer", JsonConvert.SerializeObject(User));
+
+				Dictionary<int, Product> Kart = new Dictionary<int, Product>();
+
+				HttpContext.Session.SetString("Kart", JsonConvert.SerializeObject(Kart));
+
+
+			}
+			else
+			{
+				statement = ("We Could Not Verify Your Account");
+			}
+			ViewBag.statement = statement;
+
+			return View();
+		}
+
+		public ActionResult CreateAttempt(string fname, string lname) 
+		{
+			bool Validate= logic.CreateAccountVerification(fname, lname);
+			string exist = null;
+			if (Validate == true)
+			{ exist = "Congrats on your account now go log in!";
+				logic.CreateAccount(fname, lname);
+				ViewBag.exist = exist;
+			}
+			else
+			{  exist = "That person already has an account";
+				ViewBag.exist = exist;
+			}
+			return View();
+		}
 
 		public ActionResult Users() {
 
@@ -44,23 +94,12 @@ namespace P1.Controllers
 		public ActionResult Create()
 		{
 
+
 			return View();
 		}
 
 		// POST: AccountController/Create
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection)
-		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
-		}
+	
 
 		// GET: AccountController/Edit/5
 		public ActionResult Edit(int id)

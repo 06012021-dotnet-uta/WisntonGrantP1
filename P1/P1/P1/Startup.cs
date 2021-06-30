@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Database;
+using P1Database;
 using Microsoft.EntityFrameworkCore;
 using BusLogic;
 
@@ -27,7 +27,7 @@ namespace P1
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
-			services.AddDbContext<Database.masterContext>(options =>
+			services.AddDbContext<P1Database.P0Context>(options =>
 			{
 				if (!options.IsConfigured)
 				{
@@ -35,8 +35,8 @@ namespace P1
 				}
 			});
 				services.AddScoped<IBusiLogic,BusiLogic>();
-				//// added to add sessions
-				//services.AddSession(options =>
+			// added to add sessions
+			services.AddSession();
 				//{
 				//	options.IdleTimeout = TimeSpan.FromMinutes(20);
 				//});
@@ -59,6 +59,7 @@ namespace P1
 			app.UseStaticFiles();
 
 			app.UseRouting();
+			app.UseSession();
 
 			app.UseAuthorization();
 
