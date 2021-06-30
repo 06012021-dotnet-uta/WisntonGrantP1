@@ -31,21 +31,54 @@ namespace P1.Controllers
 		{
 			var shopStore = logic.PickaStore(store);
 
-			
-
 			HttpContext.Session.SetString("store", JsonConvert.SerializeObject(shopStore));
 
 			//Customer user = JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("Customer"));
 
-			var inventoryList = logic.InventoryChoice(shopStore);
-
-			var productList = logic.ProductChoice(shopStore);
-
 			
 
+			var productList = logic.CatChoice(shopStore);
+
+		
+			ViewBag.prod = productList;
+			productList.Count();
+		
+
+
+
+				return View(productList);
+		}
+
+		public ActionResult CatChoice(string cat) 
+		{
+			var store = JsonConvert.DeserializeObject<StoreLocation>(HttpContext.Session.GetString("store"));
+
+			var product1List = logic.ProChoice(cat,store.LocationId);
+
+
+			
 			
 
-			return View(productList);
+			return View(product1List);
+		}
+
+		public ActionResult Choice(string name) 
+		{
+			var store = JsonConvert.DeserializeObject<StoreLocation>(HttpContext.Session.GetString("store"));
+
+			var inven = logic.InventoryChoice(store, name);
+			var prod = logic.SpecificProductChoice(store, name);
+
+			//ViewBag.H1 = $"{prod.ProductName}";
+			//ViewBag.P1 = $"{inven.InventoryNumber} left at this store";
+			//ViewBag.P2 = $"{prod.ProductPrice} per 1";
+			//ViewBag.max = inven.InventoryNumber;
+
+				 HttpContext.Session.SetString("inven", JsonConvert.SerializeObject(inven));
+			HttpContext.Session.SetString("prod", JsonConvert.SerializeObject(prod));
+
+
+			return View();
 		}
 
 	}

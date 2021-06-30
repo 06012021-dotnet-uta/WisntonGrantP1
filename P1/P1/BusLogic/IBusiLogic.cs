@@ -22,8 +22,13 @@ namespace BusLogic
 
 		public StoreLocation PickaStore(string store);
 
-		public List<Product> ProductChoice(StoreLocation store);
+		public List<string> CatChoice(StoreLocation store);
 
-		public List<Inventory> InventoryChoice(StoreLocation store);
+		public Inventory InventoryChoice(StoreLocation store,string name);
+
+		public List<Product> ProChoice(string cat, int storeID);
+
+		public Product SpecificProductChoice(StoreLocation store, string name);
+
 	}
 }

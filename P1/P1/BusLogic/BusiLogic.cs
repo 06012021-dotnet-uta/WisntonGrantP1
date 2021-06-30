@@ -99,24 +99,51 @@ namespace BusLogic
 			return reStore;
 		}
 
-		public List<Product> ProductChoice(StoreLocation store) 
+		public List<string> CatChoice(StoreLocation store) 
 		{
 			var storeProduct = (from x in Context.Products
 								from y in Context.Inventories
 								where y.LocationId == store.LocationId && x.ProductId == y.ProductId
-								select x).ToList();
+								orderby y.ProductId
+								select x.ProductDescription).Distinct().ToList();
+
+			
 
 			return storeProduct;
 		}
 
-		public List<Inventory> InventoryChoice(StoreLocation store)
+		public Inventory InventoryChoice(StoreLocation store,string name)
 		{
 			var storeProduct = (from x in Context.Products
 								from y in Context.Inventories
-								where y.LocationId == store.LocationId && x.ProductId == y.ProductId
-								select y).ToList();
+								where y.LocationId == store.LocationId 
+								&& x.ProductId == y.ProductId
+								&& x.ProductName == name
+								select y).FirstOrDefault();
 
 			return storeProduct;
+		}
+		public Product SpecificProductChoice(StoreLocation store, string name)
+		{
+			var storeProduct = (from x in Context.Products
+								from y in Context.Inventories
+								where y.LocationId == store.LocationId
+								&& x.ProductId == y.ProductId
+								&& x.ProductName == name
+								select x).FirstOrDefault();
+
+			return storeProduct;
+		}
+			public List<Product> ProChoice(string cat, int storeID) 
+		{
+			var store1Product = (from x in Context.Products
+								from y in Context.Inventories
+								where y.LocationId == storeID
+								&& x.ProductId == y.ProductId
+								&& x.ProductDescription == cat
+								select x).ToList();
+
+			return store1Product;
 		}
 
 	}
