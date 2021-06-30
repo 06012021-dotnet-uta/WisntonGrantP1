@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CatChoice</h1>
 
-<div>
-    <h1>This is what we have in that catagory</h1>
+
+<div class="text-center">
+    <h1></h1>
 
     <form asp-action="Choice">
-
+        <p>This is what we have in that catagory</p>
         <label for="item">Our Items</label>
         <select name="item" id="item">
             @foreach (P1Database.Product obj in Model)

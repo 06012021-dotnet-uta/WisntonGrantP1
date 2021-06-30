@@ -34,6 +34,7 @@ namespace P1.Controllers
 
 			return View(); 
 		}
+		
 		public ActionResult LogInCheck(string fname, string lname) 
 		{
 			Customer User=	logic.LogInVerification(fname, lname);

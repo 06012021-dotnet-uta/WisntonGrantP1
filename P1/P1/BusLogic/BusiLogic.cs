@@ -14,13 +14,21 @@ namespace BusLogic
 
 		public BusiLogic(P0Context context) { this.Context = context; }
 		//StoreLocation storeToGoTo = (from x in locationList where x.LocationId == userToLocationChange select x).FirstOrDefault();
-
+		/// <summary>
+		/// Gets a list of users
+		/// </summary>
+		/// <returns>list of customers</returns>
 		public List<Customer> GetUsers()
 		{
 			var CustomerList = Context.Customers.ToList();
 			return CustomerList;
 		}
-
+		/// <summary>
+		/// checks if person is in Db
+		/// </summary>
+		/// <param name="fname">takes there name</param>
+		/// <param name="lname">takes there other name</param>
+		/// <returns></returns>
 		public Customer LogInVerification(string fname, string lname)
 		{
 			try
@@ -43,7 +51,12 @@ namespace BusLogic
 			}
 
 		}
-
+		/// <summary>
+		/// verifies if person is in db on second look this is a dup and can be mergered
+		/// </summary>
+		/// <param name="fname"></param>
+		/// <param name="lname"></param>
+		/// <returns></returns>
 		public bool CreateAccountVerification(string fname, string lname)
 		{
 			try
@@ -66,7 +79,11 @@ namespace BusLogic
 			}
 
 		}
-
+		/// <summary>
+		/// creates a new acount
+		/// </summary>
+		/// <param name="fname">takes first name</param>
+		/// <param name="lname">takes last name</param>
 		public void CreateAccount(string fname, string lname) 
 		{
 
@@ -83,6 +100,10 @@ namespace BusLogic
 
 		}
 
+		/// <summary>
+		/// get's the pokeLocation
+		/// </summary>
+		/// <returns></returns>
 		public List<StoreLocation> GetLocation() 
 		{
 			var LocationList = Context.StoreLocations.ToList();
@@ -90,6 +111,11 @@ namespace BusLogic
 			return LocationList;
 		}
 
+		/// <summary>
+		/// chooses the store the user picked
+		/// </summary>
+		/// <param name="store"></param>
+		/// <returns></returns>
 		public StoreLocation PickaStore(string store) 
 		{
 			var reStore = (from x in Context.StoreLocations
@@ -99,6 +125,11 @@ namespace BusLogic
 			return reStore;
 		}
 
+		/// <summary>
+		/// chooses catagories for the user
+		/// </summary>
+		/// <param name="store"></param>
+		/// <returns></returns>
 		public List<string> CatChoice(StoreLocation store) 
 		{
 			var storeProduct = (from x in Context.Products

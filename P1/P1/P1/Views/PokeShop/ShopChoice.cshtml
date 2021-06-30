@@ -3,12 +3,12 @@
     ViewData["Title"] = "ShopChoice";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
+<div class="text-center">
     
 
     <form asp-action="CatChoice">
      
-            <label for="cat">Our catagories if your interested</label> 
+            <label for="cat">Our catagories if your interested</label> <br><br>
         <select name="cat" id="cat">
             @foreach (string obj in Model)
             {

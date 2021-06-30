@@ -1,16 +1,17 @@
-﻿
+﻿@Model P1Database.Inventory
 @{
     ViewData["Title"] = "Choice";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-<h1>@ViewBag.H1</h1>
-<p>@ViewBag.P1</p>>
-<p>$@ViewBag.P2</p>>
 
-<form asp-action="AddToKart">
-    <label for="quantity">How many would you like to recieve:</label>
-    <input type="number" id="quantity" name="quantity" min="1" max=@ViewBag.max>
-    <input type="submit">
-</form>
-</div>
+    <div class="text-center">
+
+        <p>How many would you like?</p>>
+        <p></p>>
+
+        <form asp-action="AddToKart">
+            <label for="quantity">How many would you like to recieve:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="5">
+            <input type="submit">
+        </form>
+    </div>

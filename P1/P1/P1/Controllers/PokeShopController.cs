@@ -69,17 +69,19 @@ namespace P1.Controllers
 			var inven = logic.InventoryChoice(store, name);
 			var prod = logic.SpecificProductChoice(store, name);
 
-			//ViewBag.H1 = $"{prod.ProductName}";
-			//ViewBag.P1 = $"{inven.InventoryNumber} left at this store";
-			//ViewBag.P2 = $"{prod.ProductPrice} per 1";
-			//ViewBag.max = inven.InventoryNumber;
+			ViewBag.prod = prod;
 
 				 HttpContext.Session.SetString("inven", JsonConvert.SerializeObject(inven));
 			HttpContext.Session.SetString("prod", JsonConvert.SerializeObject(prod));
 
 
-			return View();
+			return View(inven);
+
+			//var invenprod = from x in inven 
+			//				join y in prod on  
+			
 		}
+		
 
 	}
 }
